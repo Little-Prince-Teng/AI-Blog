@@ -1,0 +1,115 @@
+---
+title: "Blog Setup Guide"
+description: "A detailed guide to building a personal blog with Next.js 15 + AI"
+date: "2026-01-20"
+category: "Technology"
+tags: ["Next.js", "AI", "Blog"]
+readingTime: 5
+---
+
+# Blog Setup Guide
+
+## Why Choose Next.js 15
+
+Next.js 15 is a powerful React framework with the following advantages:
+
+- **App Router**: Modern routing system
+- **Server Components**: Improved performance and SEO
+- **Built-in AI Support**: Easy AI integration
+- **Excellent Performance**: Automatic optimization and static generation
+
+## Technology Stack
+
+### Core Framework
+- **Next.js 15**: React framework
+- **TypeScript**: Type safety
+- **Tailwind CSS**: Styling framework
+
+### AI Integration
+- **OpenAI API**: AI content generation and chat
+- **Next.js AI SDK**: Simplified AI integration
+
+## Getting Started
+
+### Step 1: Create Project
+
+```bash
+npx create-next-app@latest blog --typescript --tailwind
+```
+
+### Step 2: Configure Environment
+
+Create a `.env.local` file and add necessary environment variables:
+
+```env
+OPENAI_API_KEY=your-api-key
+NEXT_PUBLIC_SITE_URL=https://your-site.com
+```
+
+### Step 3: Add Internationalization Support
+
+```bash
+npm install next-intl
+```
+
+### Step 4: Create Content Structure
+
+```
+content/
+└── articles/
+    ├── zh/
+    │   └── first-post.mdx
+    └── en-US/
+        └── first-post.mdx
+```
+
+## Deploy to GitHub Pages
+
+### Step 1: Configure package.json
+
+Add the following scripts:
+
+```json
+"scripts": {
+  "build": "next build",
+  "export": "next export"
+}
+```
+
+### Step 2: Create GitHub Actions
+
+```yaml
+name: Deploy to GitHub Pages
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install
+      - run: npm run build
+      - run: npm run export
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
+```
+
+## Summary
+
+Building a personal blog is a great way to showcase your technical skills and share knowledge. Using Next.js 15 + AI technology, you can create a powerful, high-performance modern blog.
+
+Through this guide, you've learned:
+
+- The advantages of choosing Next.js 15
+- Complete technology stack configuration
+- Detailed setup steps
+- How to deploy to GitHub Pages
+
+Good luck with your blog setup!

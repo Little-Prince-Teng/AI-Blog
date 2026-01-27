@@ -1,0 +1,21 @@
+import createMDX from '@next/mdx';
+import rehypeHighlight from 'rehype-highlight';
+import rehypeSlug from 'rehype-slug';
+import remarkGfm from 'remark-gfm';
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin();
+
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [rehypeHighlight, rehypeSlug],
+  },
+});
+
+const nextConfig = {
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+};
+
+export default withNextIntl(withMDX(nextConfig));

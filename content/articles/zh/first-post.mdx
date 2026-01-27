@@ -1,0 +1,115 @@
+---
+title: "博客搭建指南"
+description: "使用Next.js 15 + AI搭建个人博客的详细指南"
+date: "2026-01-20"
+category: "技术"
+tags: ["Next.js", "AI", "博客"]
+readingTime: 5
+---
+
+# 博客搭建指南
+
+## 为什么选择Next.js 15
+
+Next.js 15是一个功能强大的React框架，提供了以下优势：
+
+- **App Router**：现代化的路由系统
+- **Server Components**：提高性能和SEO
+- **内置AI支持**：轻松集成AI功能
+- **优异的性能**：自动优化和静态生成
+
+## 技术栈选择
+
+### 核心框架
+- **Next.js 15**：React框架
+- **TypeScript**：类型安全
+- **Tailwind CSS**：样式框架
+
+### AI集成
+- **OpenAI API**：AI内容生成和聊天
+- **Next.js AI SDK**：简化AI集成
+
+## 开始搭建
+
+### 步骤1：创建项目
+
+```bash
+npx create-next-app@latest blog --typescript --tailwind
+```
+
+### 步骤2：配置环境
+
+创建`.env.local`文件，添加必要的环境变量：
+
+```env
+OPENAI_API_KEY=your-api-key
+NEXT_PUBLIC_SITE_URL=https://your-site.com
+```
+
+### 步骤3：添加国际化支持
+
+```bash
+npm install next-intl
+```
+
+### 步骤4：创建内容结构
+
+```
+content/
+└── articles/
+    ├── zh/
+    │   └── first-post.mdx
+    └── en-US/
+        └── first-post.mdx
+```
+
+## 部署到GitHub Pages
+
+### 步骤1：配置package.json
+
+添加以下脚本：
+
+```json
+"scripts": {
+  "build": "next build",
+  "export": "next export"
+}
+```
+
+### 步骤2：创建GitHub Actions
+
+```yaml
+name: Deploy to GitHub Pages
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install
+      - run: npm run build
+      - run: npm run export
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
+```
+
+## 总结
+
+搭建个人博客是展示技术能力和分享知识的好方式。使用Next.js 15 + AI技术，可以创建一个功能强大、性能优异的现代化博客。
+
+通过本指南，您已经了解了：
+
+- 选择Next.js 15的优势
+- 完整的技术栈配置
+- 详细的搭建步骤
+- 部署到GitHub Pages的方法
+
+祝您搭建博客成功！

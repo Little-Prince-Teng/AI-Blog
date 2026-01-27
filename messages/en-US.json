@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "categories": "Categories",
+    "tags": "Tags",
+    "about": "About",
+    "search": "Search"
+  },
+  "common": {
+    "readMore": "Read More",
+    "publishedAt": "Published",
+    "readingTime": "Reading Time",
+    "minutes": "minutes",
+    "tags": "Tags",
+    "category": "Category",
+    "relatedArticles": "Related Articles",
+    "noResults": "No results found",
+    "searchPlaceholder": "Search articles...",
+    "backToHome": "Back to Home"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "toggle": "Toggle Theme"
+  },
+  "language": {
+    "zh": "中文",
+    "en": "English"
+  },
+  "home": {
+    "welcome": "Welcome to My Blog",
+    "subtitle": "Sharing Technology, Recording Growth",
+    "latestArticles": "Latest Articles",
+    "viewAll": "View All"
+  },
+  "blog": {
+    "allArticles": "All Articles",
+    "articleCount": "articles"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "I am a passionate developer focused on frontend development and AI applications."
+  },
+  "ai": {
+    "chat": "AI Assistant",
+    "placeholder": "Ask AI...",
+    "send": "Send"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "home": "首页",
+    "blog": "博客",
+    "categories": "分类",
+    "tags": "标签",
+    "about": "关于",
+    "search": "搜索"
+  },
+  "common": {
+    "readMore": "阅读更多",
+    "publishedAt": "发布于",
+    "readingTime": "阅读时长",
+    "minutes": "分钟",
+    "tags": "标签",
+    "category": "分类",
+    "relatedArticles": "相关文章",
+    "noResults": "没有找到结果",
+    "searchPlaceholder": "搜索文章...",
+    "backToHome": "返回首页"
+  },
+  "theme": {
+    "light": "浅色",
+    "dark": "深色",
+    "toggle": "切换主题"
+  },
+  "language": {
+    "zh": "中文",
+    "en": "English"
+  },
+  "home": {
+    "welcome": "欢迎来到我的博客",
+    "subtitle": "分享技术，记录成长",
+    "latestArticles": "最新文章",
+    "viewAll": "查看全部"
+  },
+  "blog": {
+    "allArticles": "所有文章",
+    "articleCount": "篇文章"
+  },
+  "about": {
+    "title": "关于我",
+    "description": "我是一名热爱技术的开发者，专注于前端开发和AI应用。"
+  },
+  "ai": {
+    "chat": "AI助手",
+    "placeholder": "向AI提问...",
+    "send": "发送"
+  }
+}
