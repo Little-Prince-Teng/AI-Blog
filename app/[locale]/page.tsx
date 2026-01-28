@@ -1,7 +1,31 @@
+import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { ArrowRight, BookOpen, Zap, Code } from 'lucide-react';
 import { locales, defaultLocale } from '@/lib/i18n';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations('home');
+  const currentLocale = locale || defaultLocale;
+
+  return {
+    title: t('welcome'),
+    description: t('subtitle'),
+    keywords: ['blog', '技术', '编程', 'AI', 'Next.js', 'frontend'],
+    openGraph: {
+      title: t('welcome'),
+      description: t('subtitle'),
+      type: 'website',
+      locale: currentLocale === 'zh' ? 'zh_CN' : 'en_US',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('welcome'),
+      description: t('subtitle'),
+    },
+  };
+}
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

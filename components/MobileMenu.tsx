@@ -23,6 +23,7 @@ export function MobileMenu() {
   const navItems = [
     { path: '', label: t('home'), key: 'home' },
     { path: 'blog', label: t('blog'), key: 'blog' },
+    { path: 'search', label: t('search'), key: 'search' },
     { path: 'about', label: t('about'), key: 'about' },
   ];
 

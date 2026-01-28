@@ -46,5 +46,15 @@
     "chat": "AI Assistant",
     "placeholder": "Ask AI...",
     "send": "Send"
+  },
+  "search": {
+    "title": "Search Articles",
+    "description": "Find content you're interested in",
+    "placeholder": "Enter keywords to search...",
+    "recentSearches": "Recent Searches",
+    "results": "Search Results",
+    "searching": "Searching...",
+    "noResults": "No articles found",
+    "startSearching": "Enter keywords to start searching"
   }
 }

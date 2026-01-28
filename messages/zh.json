@@ -46,5 +46,15 @@
     "chat": "AI助手",
     "placeholder": "向AI提问...",
     "send": "发送"
+  },
+  "search": {
+    "title": "搜索文章",
+    "description": "在博客中查找您感兴趣的内容",
+    "placeholder": "输入关键词搜索...",
+    "recentSearches": "最近搜索",
+    "results": "搜索结果",
+    "searching": "搜索中...",
+    "noResults": "没有找到相关文章",
+    "startSearching": "输入关键词开始搜索"
   }
 }
