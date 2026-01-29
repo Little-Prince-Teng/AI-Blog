@@ -216,6 +216,78 @@ npm run build
 npm start
 ```
 
+## 部署
+
+本项目支持两种部署方式：
+
+### Vercel 部署（推荐）
+
+**Vercel 是 Next.js 的官方部署平台，提供完整的 SSR、API 路由和图片优化支持。**
+
+#### 快速部署
+
+1. 访问 [vercel.com](https://vercel.com) 并使用 GitHub 账户登录
+2. 点击 **"Add New..."** → **"Project"**
+3. 导入你的 `AI-Blog` 仓库
+4. 配置环境变量：
+   - `GLM_API_KEY` - 智谱AI API密钥（可选）
+   - `OPENAI_API_KEY` - OpenAI API密钥（可选）
+5. 点击 **"Deploy"** 等待部署完成
+
+#### 详细文档
+
+查看 [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md) 获取完整的部署指南，包括：
+- 环境变量配置
+- 自定义域名设置
+- 预览部署
+- 监控和日志
+- 故障排除
+
+#### Vercel 优势
+
+- ✅ 完整的 Next.js 功能支持（SSR、API 路由、图片优化）
+- ✅ 全球 CDN 分发
+- ✅ 自动 HTTPS
+- ✅ 自动预览部署
+- ✅ 实时日志和监控
+- ✅ 免费额度充足
+
+### GitHub Pages 部署
+
+**GitHub Pages 部署为静态站点，部分功能受限。**
+
+#### 注意事项
+
+使用 GitHub Pages 部署时，以下功能将不可用：
+- ❌ AI 聊天功能（API 路由）
+- ❌ 搜索 API（API 路由）
+- ❌ 服务端渲染（SSR）
+- ❌ 图片优化
+
+#### 快速部署
+
+1. 修改 `next.config.ts` 添加静态导出配置
+2. 推送代码到 GitHub
+3. 配置 GitHub Pages 使用 GitHub Actions
+4. 等待自动部署完成
+
+#### 详细文档
+
+查看 [DEPLOYMENT.md](./DEPLOYMENT.md) 获取完整的 GitHub Pages 部署指南。
+
+### 部署方式对比
+
+| 特性 | Vercel | GitHub Pages |
+|------|--------|-------------|
+| SSR 支持 | ✅ | ❌ |
+| API 路由 | ✅ | ❌ |
+| 图片优化 | ✅ | ❌ |
+| 预览部署 | ✅ | ❌ |
+| 免费 | ✅ | ✅ |
+| 部署速度 | 快 | 中等 |
+
+**推荐使用 Vercel 部署以获得完整功能！**
+
 ## 添加文章
 
 1. 在 `content/articles/` 目录下创建对应语言的文件夹（`zh` 或 `en-US`）
