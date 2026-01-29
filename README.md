@@ -237,6 +237,7 @@ npm start
 #### 详细文档
 
 查看 [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md) 获取完整的部署指南，包括：
+
 - 环境变量配置
 - 自定义域名设置
 - 预览部署
@@ -259,6 +260,7 @@ npm start
 #### 注意事项
 
 使用 GitHub Pages 部署时，以下功能将不可用：
+
 - ❌ AI 聊天功能（API 路由）
 - ❌ 搜索 API（API 路由）
 - ❌ 服务端渲染（SSR）
