@@ -23,6 +23,12 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: false,
   },
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
+  },
+  swcMinify: true,
+  compress: true,
+  productionBrowserSourceMaps: false,
 };
 
 export default withNextIntl(withMDX(nextConfig));
