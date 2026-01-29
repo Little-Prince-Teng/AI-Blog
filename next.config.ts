@@ -26,7 +26,6 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
-  swcMinify: true,
   compress: true,
   productionBrowserSourceMaps: false,
 };
