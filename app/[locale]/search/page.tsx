@@ -1,13 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { SearchBar } from '@/components/SearchBar';
 import { ArticleCard } from '@/components/ArticleCard';
 import { Article } from '@/lib/articles';
 
-export default function SearchPage({ params: { locale } }: { params: { locale: string } }) {
+export default function SearchPage() {
+  const params = useParams();
+  const locale = (params?.locale as string) || 'zh';
   const t = useTranslations('search');
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get('q') || '';

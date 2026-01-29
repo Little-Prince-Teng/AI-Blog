@@ -3,7 +3,7 @@ import { getArticles } from '@/lib/articles';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://yourdomain.com';
-  const locales = ['zh', 'en'];
+  const locales = ['zh', 'en-US'];
 
   const staticPages: MetadataRoute.Sitemap = [
     {
@@ -19,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     {
-      url: `${baseUrl}/en`,
+      url: `${baseUrl}/en-US`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1,
