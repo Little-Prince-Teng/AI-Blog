@@ -1,0 +1,50 @@
+---
+title: "Deep Learning Notes"
+description: "Key concepts from deep learning book chapter 1"
+date: "2026-01-29"
+type: "note"
+tags: ["学习", "深度学习", "神经网络"]
+source: "《深度学习》"
+sourceUrl: "https://example.com/deep-learning"
+---
+
+深度学习学习笔记
+
+今天学习了深度学习的基础概念，整理一下重点：
+
+## 神经网络基础
+
+### 感知机
+- 最简单的神经网络单元
+- 输入 × 权重 + 偏置
+- 通过激活函数输出
+
+### 多层感知机（MLP）
+- 输入层
+- 隐藏层（可以有多层）
+- 输出层
+
+### 常用激活函数
+- **ReLU**：f(x) = max(0, x)
+- **Sigmoid**：f(x) = 1 / (1 + e^(-x))
+- **Tanh**：f(x) = (e^x - e^(-x)) / (e^x + e^(-x))
+
+## 反向传播
+- 通过链式法则计算梯度
+- 从输出层向输入层传播误差
+- 更新权重和偏置
+
+## 损失函数
+- **MSE**：均方误差（回归问题）
+- **Cross-Entropy**：交叉熵（分类问题）
+
+## 优化器
+- **SGD**：随机梯度下降
+- **Adam**：自适应矩估计
+- **RMSprop**：均方根传播
+
+需要继续深入学习的点：
+1. 正则化方法
+2. 批归一化
+3. 残差网络
+4. 注意力机制
