@@ -31,7 +31,7 @@ Thumbs.db
 # 文档
 README.md
 DEPLOYMENT.md
-*.md
+VERCEL_DEPLOYMENT.md
 
 # 其他
 .vercel

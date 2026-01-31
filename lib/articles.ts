@@ -24,7 +24,7 @@ export async function getArticles(locale: string): Promise<Article[]> {
         const filePath = path.join(articlesDir, file);
         const content = await fs.readFile(filePath, 'utf-8');
         
-        const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+        const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
         if (frontmatterMatch) {
           const frontmatter = frontmatterMatch[1];
           const article: Partial<Article> = {
@@ -73,7 +73,7 @@ export async function getArticle(slug: string, locale: string): Promise<Article 
     
     const content = await fs.readFile(filePath, 'utf-8');
     
-    const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+    const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
     if (frontmatterMatch) {
       const frontmatter = frontmatterMatch[1];
       const article: Partial<Article> = {

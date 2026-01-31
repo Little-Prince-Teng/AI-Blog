@@ -26,7 +26,7 @@ export async function getNotes(locale: string): Promise<Note[]> {
         const filePath = path.join(notesDir, file);
         const content = await fs.readFile(filePath, 'utf-8');
         
-        const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+        const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
         if (frontmatterMatch) {
           const frontmatter = frontmatterMatch[1];
           const note: Partial<Note> = {
@@ -77,7 +77,7 @@ export async function getNote(id: string, locale: string): Promise<Note | null> 
     
     const content = await fs.readFile(filePath, 'utf-8');
     
-    const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+    const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
     if (frontmatterMatch) {
       const frontmatter = frontmatterMatch[1];
       const note: Partial<Note> = {
@@ -123,7 +123,7 @@ export async function getNoteContent(id: string, locale: string): Promise<string
     const filePath = path.join(notesDir, `${id}.mdx`);
     
     const content = await fs.readFile(filePath, 'utf-8');
-    const bodyContent = content.replace(/^---\n[\s\S]*?\n---\n/, '');
+    const bodyContent = content.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
     
     return bodyContent;
   } catch (error) {
