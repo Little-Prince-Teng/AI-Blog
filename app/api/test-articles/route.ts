@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 import { getArticles } from '@/lib/articles';
 
 export async function GET(request: NextRequest) {
