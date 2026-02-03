@@ -16,7 +16,7 @@ export async function getArticles(locale: string): Promise<Article[]> {
     const fs = await import('fs/promises');
     const path = await import('path');
     
-    const articlesDir = path.join(process.cwd(), 'content', 'articles', locale);
+    const articlesDir = path.join(process.cwd(), 'public', 'content', 'articles', locale);
     const files = await fs.readdir(articlesDir);
     
     for (const file of files) {
@@ -68,7 +68,7 @@ export async function getArticle(slug: string, locale: string): Promise<Article 
     const fs = await import('fs/promises');
     const path = await import('path');
     
-    const articlesDir = path.join(process.cwd(), 'content', 'articles', locale);
+    const articlesDir = path.join(process.cwd(), 'public', 'content', 'articles', locale);
     const filePath = path.join(articlesDir, `${slug}.mdx`);
     
     const content = await fs.readFile(filePath, 'utf-8');

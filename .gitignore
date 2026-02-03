@@ -36,3 +36,6 @@ next-env.d.ts
 
 #vscode
 .vscode
+
+# Don't ignore content files
+!public/content/

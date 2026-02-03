@@ -18,7 +18,7 @@ export async function getNotes(locale: string): Promise<Note[]> {
     const fs = await import('fs/promises');
     const path = await import('path');
     
-    const notesDir = path.join(process.cwd(), 'content', 'notes', locale);
+    const notesDir = path.join(process.cwd(), 'public', 'content', 'notes', locale);
     const files = await fs.readdir(notesDir);
     
     for (const file of files) {
@@ -72,7 +72,7 @@ export async function getNote(id: string, locale: string): Promise<Note | null> 
     const fs = await import('fs/promises');
     const path = await import('path');
     
-    const notesDir = path.join(process.cwd(), 'content', 'notes', locale);
+    const notesDir = path.join(process.cwd(), 'public', 'content', 'notes', locale);
     const filePath = path.join(notesDir, `${id}.mdx`);
     
     const content = await fs.readFile(filePath, 'utf-8');
@@ -119,7 +119,7 @@ export async function getNoteContent(id: string, locale: string): Promise<string
     const fs = await import('fs/promises');
     const path = await import('path');
     
-    const notesDir = path.join(process.cwd(), 'content', 'notes', locale);
+    const notesDir = path.join(process.cwd(), 'public', 'content', 'notes', locale);
     const filePath = path.join(notesDir, `${id}.mdx`);
     
     const content = await fs.readFile(filePath, 'utf-8');

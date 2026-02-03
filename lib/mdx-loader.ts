@@ -1,7 +1,7 @@
-import FirstPostEnUS from '@/content/articles/en-US/first-post.mdx';
-import FirstPostZh from '@/content/articles/zh/first-post.mdx';
-import AiEvolutionEnUS from '@/content/articles/en-US/ai-evolution.mdx';
-import AiEvolutionZh from '@/content/articles/zh/ai-evolution.mdx';
+import FirstPostEnUS from '@/public/content/articles/en-US/first-post.mdx';
+import FirstPostZh from '@/public/content/articles/zh/first-post.mdx';
+import AiEvolutionEnUS from '@/public/content/articles/en-US/ai-evolution.mdx';
+import AiEvolutionZh from '@/public/content/articles/zh/ai-evolution.mdx';
 
 export const MDX_FILES = {
   'en-US': {

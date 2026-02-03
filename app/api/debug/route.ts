@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     const type = searchParams.get('type') || 'articles';
     const locale = searchParams.get('locale') || 'zh';
 
-    const contentDir = join(process.cwd(), 'content', type, locale);
+    const contentDir = join(process.cwd(), 'public', 'content', type, locale);
     
     const files = await readdir(contentDir);
     const mdxFiles = files.filter(f => f.endsWith('.mdx'));

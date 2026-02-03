@@ -132,7 +132,7 @@
 
 ## 项目结构
 
-```
+``` 项目结构
 AI-Blog/
 ├── app/                      # Next.js App Router
 │   ├── [locale]/            # 国际化路由
@@ -276,14 +276,14 @@ npm start
 - ❌ 服务端渲染（SSR）
 - ❌ 图片优化
 
-#### 快速部署
+#### 部署步骤
 
 1. 修改 `next.config.ts` 添加静态导出配置
 2. 推送代码到 GitHub
 3. 配置 GitHub Pages 使用 GitHub Actions
 4. 等待自动部署完成
 
-#### 详细文档
+#### 部署文档
 
 查看 [DEPLOYMENT.md](./DEPLOYMENT.md) 获取完整的 GitHub Pages 部署指南。
 
@@ -317,8 +317,8 @@ readingTime: 5
 ---
 ```
 
-4. 在frontmatter下方编写MDX内容
-5. 更新 `lib/mdx-loader.ts` 以导入新的MDX文件
+1. 在frontmatter下方编写MDX内容
+2. 更新 `lib/mdx-loader.ts` 以导入新的MDX文件
 
 ## 国际化i18n
 
@@ -367,6 +367,7 @@ readingTime: 5
 ```
 
 特性：
+
 - 支持GLM-4-flash和OpenAI GPT-3.5-turbo
 - 15秒请求超时
 - 详细的性能日志
@@ -386,6 +387,7 @@ readingTime: 5
 ```
 
 特性：
+
 - 搜索标题、描述和标签
 - 实时搜索结果
 - 错误处理
