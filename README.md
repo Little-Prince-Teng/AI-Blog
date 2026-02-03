@@ -204,7 +204,34 @@ npm install
 # AI配置（二选一或都配置）
 GLM_API_KEY=your_glm_api_key
 OPENAI_API_KEY=your_openai_api_key
+
+# Vercel Postgres 数据库配置（用于笔记功能）
+# 在 Vercel Dashboard 中创建 Postgres 数据库后，这些变量会自动配置
+# 本地开发时，可以从 Vercel Dashboard 复制这些变量
+POSTGRES_URL=your_postgres_url
 ```
+
+查看 [.env.example](./.env.example) 获取完整的环境变量示例。
+
+### 数据库设置
+
+本项目使用 Vercel Postgres 存储笔记数据，提供完整的 CRUD 功能。
+
+**快速设置：**
+
+1. 在 Vercel Dashboard 中创建 Postgres 数据库（Storage → Create Database → Postgres）
+2. 部署后，访问 `/api/db-init` 初始化数据库表
+3. 完成！
+
+**详细文档：**
+
+查看 [DATABASE_SETUP.md](./DATABASE_SETUP.md) 获取完整的数据库设置指南，包括：
+
+- 数据库表结构
+- API 使用示例
+- 故障排除
+- 性能优化
+- 备份和监控
 
 ### 运行开发服务器
 

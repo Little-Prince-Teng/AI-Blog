@@ -1,3 +1,25 @@
+import { 
+  getNotes as dbGetNotes, 
+  getNoteById, 
+  getNotesByType as dbGetNotesByType, 
+  getNotesByTag as dbGetNotesByTag, 
+  searchNotes as dbSearchNotes, 
+  getTags as dbGetTags, 
+  getStatistics as dbGetStatistics,
+  updateNote as dbUpdateNote,
+  deleteNote as dbDeleteNote,
+  createNote as dbCreateNote,
+} from './db';
+import {
+  getNotesFromFS,
+  getNoteByIdFromFS,
+  getNotesByTypeFromFS,
+  getNotesByTagFromFS,
+  searchNotesFromFS,
+  getTagsFromFS,
+  getStatisticsFromFS,
+} from './notes-fs';
+
 export interface Note {
   id: string;
   type: 'thought' | 'note';
@@ -11,154 +33,53 @@ export interface Note {
   sourceUrl?: string;
 }
 
+const USE_DATABASE = !!process.env.POSTGRES_URL;
+
 export async function getNotes(locale: string): Promise<Note[]> {
-  const notes: Note[] = [];
-  
-  try {
-    const fs = await import('fs/promises');
-    const path = await import('path');
-    
-    const notesDir = path.join(process.cwd(), 'public', 'content', 'notes', locale);
-    const files = await fs.readdir(notesDir);
-    
-    for (const file of files) {
-      if (file.endsWith('.mdx')) {
-        const filePath = path.join(notesDir, file);
-        const content = await fs.readFile(filePath, 'utf-8');
-        
-        const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-        if (frontmatterMatch) {
-          const frontmatter = frontmatterMatch[1];
-          const note: Partial<Note> = {
-            id: file.replace('.mdx', ''),
-            locale,
-          };
-          
-          frontmatter.split('\n').forEach(line => {
-            const [key, ...values] = line.split(': ');
-            if (key && values.length > 0) {
-              let value = values.join(': ').trim();
-              value = value.replace(/^"|"$/g, '');
-              if (key === 'title') note.title = value;
-              if (key === 'description') note.content = value;
-              if (key === 'date') note.date = value;
-              if (key === 'type') note.type = value as 'thought' | 'note';
-              if (key === 'tags') {
-                note.tags = value.replace(/\[|\]/g, '').split(',').map(tag => tag.trim().replace(/^"|"$/g, ''));
-              }
-              if (key === 'mood') note.mood = value;
-              if (key === 'source') note.source = value;
-              if (key === 'sourceUrl') note.sourceUrl = value;
-            }
-          });
-          
-          if (note.title && note.content && note.date && note.type) {
-            notes.push(note as Note);
-          }
-        }
-      }
-    }
-    
-    notes.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  } catch (error) {
-    console.error('Error reading notes:', error);
+  if (USE_DATABASE) {
+    return dbGetNotes(locale);
   }
-  
-  return notes;
+  return getNotesFromFS(locale);
 }
 
 export async function getNote(id: string, locale: string): Promise<Note | null> {
-  try {
-    const fs = await import('fs/promises');
-    const path = await import('path');
-    
-    const notesDir = path.join(process.cwd(), 'public', 'content', 'notes', locale);
-    const filePath = path.join(notesDir, `${id}.mdx`);
-    
-    const content = await fs.readFile(filePath, 'utf-8');
-    
-    const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-    if (frontmatterMatch) {
-      const frontmatter = frontmatterMatch[1];
-      const note: Partial<Note> = {
-        id,
-        locale,
-      };
-      
-      frontmatter.split('\n').forEach(line => {
-        const [key, ...values] = line.split(': ');
-        if (key && values.length > 0) {
-          let value = values.join(': ').trim();
-          value = value.replace(/^"|"$/g, '');
-          if (key === 'title') note.title = value;
-          if (key === 'description') note.content = value;
-          if (key === 'date') note.date = value;
-          if (key === 'type') note.type = value as 'thought' | 'note';
-          if (key === 'tags') {
-            note.tags = value.replace(/\[|\]/g, '').split(',').map(tag => tag.trim().replace(/^"|"$/g, ''));
-          }
-          if (key === 'mood') note.mood = value;
-          if (key === 'source') note.source = value;
-          if (key === 'sourceUrl') note.sourceUrl = value;
-        }
-      });
-      
-      if (note.title && note.content && note.date && note.type) {
-        return note as Note;
-      }
-    }
-  } catch (error) {
-    console.error('Error reading note:', error);
+  if (USE_DATABASE) {
+    return getNoteById(id, locale);
   }
-  
-  return null;
+  return getNoteByIdFromFS(id, locale);
 }
 
 export async function getNoteContent(id: string, locale: string): Promise<string | null> {
-  try {
-    const fs = await import('fs/promises');
-    const path = await import('path');
-    
-    const notesDir = path.join(process.cwd(), 'public', 'content', 'notes', locale);
-    const filePath = path.join(notesDir, `${id}.mdx`);
-    
-    const content = await fs.readFile(filePath, 'utf-8');
-    const bodyContent = content.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
-    
-    return bodyContent;
-  } catch (error) {
-    console.error('Error reading note content:', error);
-  }
-  
-  return null;
+  const note = await getNote(id, locale);
+  return note?.content || null;
 }
 
 export async function getTags(locale: string): Promise<string[]> {
-  const notes = await getNotes(locale);
-  const allTags = notes.flatMap(note => note.tags);
-  const uniqueTags = Array.from(new Set(allTags));
-  return uniqueTags.sort();
+  if (USE_DATABASE) {
+    return dbGetTags(locale);
+  }
+  return getTagsFromFS(locale);
 }
 
 export async function getNotesByType(type: 'thought' | 'note', locale: string): Promise<Note[]> {
-  const notes = await getNotes(locale);
-  return notes.filter(note => note.type === type);
+  if (USE_DATABASE) {
+    return dbGetNotesByType(type, locale);
+  }
+  return getNotesByTypeFromFS(type, locale);
 }
 
 export async function getNotesByTag(tag: string, locale: string): Promise<Note[]> {
-  const notes = await getNotes(locale);
-  return notes.filter(note => note.tags.includes(tag));
+  if (USE_DATABASE) {
+    return dbGetNotesByTag(tag, locale);
+  }
+  return getNotesByTagFromFS(tag, locale);
 }
 
 export async function searchNotes(query: string, locale: string): Promise<Note[]> {
-  const notes = await getNotes(locale);
-  const lowerQuery = query.toLowerCase();
-  
-  return notes.filter(note => 
-    note.title.toLowerCase().includes(lowerQuery) ||
-    note.content.toLowerCase().includes(lowerQuery) ||
-    note.tags.some(tag => tag.toLowerCase().includes(lowerQuery))
-  );
+  if (USE_DATABASE) {
+    return dbSearchNotes(query, locale);
+  }
+  return searchNotesFromFS(query, locale);
 }
 
 export async function getStatistics(locale: string): Promise<{
@@ -167,13 +88,29 @@ export async function getStatistics(locale: string): Promise<{
   notes: number;
   tags: number;
 }> {
-  const notes = await getNotes(locale);
-  const tags = await getTags(locale);
-  
-  return {
-    total: notes.length,
-    thoughts: notes.filter(n => n.type === 'thought').length,
-    notes: notes.filter(n => n.type === 'note').length,
-    tags: tags.length,
-  };
+  if (USE_DATABASE) {
+    return dbGetStatistics(locale);
+  }
+  return getStatisticsFromFS(locale);
+}
+
+export async function createNote(note: Omit<Note, 'created_at' | 'updated_at'>): Promise<Note> {
+  if (USE_DATABASE) {
+    return dbCreateNote(note);
+  }
+  throw new Error('Note creation is only available in database mode');
+}
+
+export async function updateNote(id: string, locale: string, note: Partial<Note>): Promise<Note | null> {
+  if (USE_DATABASE) {
+    return dbUpdateNote(id, locale, note);
+  }
+  return null;
+}
+
+export async function deleteNote(id: string, locale: string): Promise<boolean> {
+  if (USE_DATABASE) {
+    return dbDeleteNote(id, locale);
+  }
+  return false;
 }

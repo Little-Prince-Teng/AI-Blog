@@ -1,6 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
+import { getNotes, createNote, getNotesByType, getNotesByTag, searchNotes } from '@/lib/notes';
+
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const locale = searchParams.get('locale') || 'zh';
+    const type = searchParams.get('type');
+    const tag = searchParams.get('tag');
+    const q = searchParams.get('q');
+
+    let notes;
+    
+    if (type && (type === 'thought' || type === 'note')) {
+      notes = await getNotesByType(type as 'thought' | 'note', locale);
+    } else if (tag) {
+      notes = await getNotesByTag(tag, locale);
+    } else if (q) {
+      notes = await searchNotes(q, locale);
+    } else {
+      notes = await getNotes(locale);
+    }
+
+    return NextResponse.json(notes);
+  } catch (error) {
+    console.error('Error fetching notes:', error);
+    return NextResponse.json({ error: 'Failed to fetch notes' }, { status: 500 });
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,29 +37,30 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const id = `${Date.now()}`;
-    const notesDir = join(process.cwd(), 'content', 'notes', locale);
+    const USE_DATABASE = !!process.env.POSTGRES_URL;
     
-    await mkdir(notesDir, { recursive: true });
+    if (!USE_DATABASE) {
+      return NextResponse.json({ 
+        error: 'Note creation is only available in database mode. Please deploy to Vercel with Postgres enabled.' 
+      }, { status: 501 });
+    }
 
-    const frontmatter = `---
-title: "${title}"
-description: "${content}"
-date: "${date}"
-type: "${type}"
-tags: [${tags.map((t: string) => `"${t}"`).join(', ')}]
-${mood ? `mood: "${mood}"` : ''}
-${source ? `source: "${source}"` : ''}
-${sourceUrl ? `sourceUrl: "${sourceUrl}"` : ''}
----
+    const id = `${Date.now()}`;
+    
+    const note = await createNote({
+      id,
+      type,
+      title,
+      content,
+      tags: tags || [],
+      date,
+      locale,
+      mood,
+      source,
+      sourceUrl,
+    });
 
-${content}
-`;
-
-    const filePath = join(notesDir, `${id}.mdx`);
-    await writeFile(filePath, frontmatter, 'utf-8');
-
-    return NextResponse.json({ id, success: true }, { status: 201 });
+    return NextResponse.json(note, { status: 201 });
   } catch (error) {
     console.error('Error creating note:', error);
     return NextResponse.json({ error: 'Failed to create note' }, { status: 500 });
